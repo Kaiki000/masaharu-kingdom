@@ -1,1 +1,78 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#071a36"><title>選手プロフィール | まさはる王国</title><link rel="stylesheet" href="site.css"></head><body><header><a class="brand" href="index.html">まさはる王国</a><nav><a href="index.html">トップ</a><a href="about.html">チーム紹介</a><a href="members.html">選手名鑑</a><a href="schedule.html">試合日程</a></nav></header><main><a class="close" href="members.html" aria-label="選手名鑑に戻る">×</a><div id="profile"><p class="loading">プロフィールを読み込み中…</p></div></main><footer class="foot">まさはる王国　｜　エンジョイ最優先</footer><script src="data.js"></script><script>loadPlayers().then(players=>{const n=new URLSearchParams(location.search).get('number'),p=players.find(x=>String(x.number)===n),el=document.getElementById('profile');if(!p){el.innerHTML='<h1>選手が見つかりません</h1><a href="members.html">一覧に戻る</a>';return;}document.title=p.name+' | まさはる王国';const fields=[['キャッチコピー',p.catchphrase],['野球経験',p.experience],['ポジション',p.position],['出身',p.hometown],['仕事',p.job],['趣味',p.hobby],['ひとこと',p.comment]];el.innerHTML=`<p class="eyebrow">PLAYER PROFILE / NO.${esc(p.number)}</p><div class="detail-head"><h1>${esc(p.name)}</h1><span class="kana">${esc(p.kana)}</span></div><div class="profile-layout"><div class="photo profile-photo">${photoHtml(p.photo,p.name)}</div><section class="profile-info"><h2>プロフィール</h2><dl>${fields.map(([k,v])=>`<dt>${esc(k)}</dt><dd>${esc(v===''||v==null?'—':v)}</dd>`).join('')}</dl></section></div><section class="stats-panel"><h2>選手能力</h2>${radar(p.stats)}<p class="muted" style="text-align:center">打撃・投球・守備・体力・脚力 ／ 5段階評価</p></section>${p.gallery?.length?`<section style="margin-top:55px"><h2>フォトギャラリー</h2><div class="gallery">${p.gallery.map(x=>`<img src="${esc(x.url)}" alt="${esc(p.name)}の追加写真" loading="lazy">`).join('')}</div></section>`:''}`;}).catch(e=>{document.getElementById('profile').innerHTML='<p class="error">プロフィールを取得できませんでした。</p>';console.error(e)});</script></body></html>
+
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#071a36">
+  <title>選手プロフィール | まさはる王国</title>
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+<header>
+  <a class="brand" href="index.html">まさはる王国</a>
+  <nav>
+    <a href="index.html">トップ</a>
+    <a href="about.html">チーム紹介</a>
+    <a href="members.html">選手名鑑</a>
+    <a href="schedule.html">試合日程</a>
+  </nav>
+</header>
+<main>
+  <a class="close" href="members.html" aria-label="選手名鑑に戻る">×</a>
+  <div id="profile">
+    <p class="loading">プロフィールを読み込み中…</p>
+  </div>
+</main>
+<footer class="foot">まさはる王国　｜　エンジョイ最優先</footer>
+<script src="data.js"></script>
+<script>
+loadPlayers().then(players=>{
+  const n=new URLSearchParams(location.search).get('number'),
+  p=players.find(x=>String(x.number)===n),
+  el=document.getElementById('profile');
+  if(!p){
+    el.innerHTML='<h1>選手が見つかりません</h1><a href="members.html">一覧に戻る</a>';
+    return;
+  }
+  document.title=p.name+' | まさはる王国';
+  const fields=[
+    ['キャッチコピー',p.catchphrase],
+    ['野球経験',p.experience],
+    ['ポジション',p.position],
+    ['出身',p.hometown],
+    ['仕事',p.job],
+    ['趣味',p.hobby],
+    ['ひとこと',p.comment]
+  ];
+  el.innerHTML=`
+    <p class="eyebrow">PLAYER PROFILE / NO.${esc(p.number)}</p>
+    <div class="detail-head">
+      <h1>${esc(p.name)}</h1>
+      <span class="kana">${esc(p.kana)}</span>
+    </div>
+    <div class="profile-layout">
+      <div class="photo profile-photo">${photoHtml(p.photo,p.name)}</div>
+      <section class="profile-info">
+        <h2>プロフィール</h2>
+        <dl>${fields.map(([k,v])=>`<dt>${esc(k)}</dt><dd>${esc(v===''||v==null?'—':v)}</dd>`).join('')}</dl>
+      </section>
+    </div>
+    <section class="stats-panel">
+      <h2>選手能力</h2>
+      ${radar(p.stats)}
+    </section>
+    ${p.gallery?.length?`
+      <section style="margin-top:55px">
+        <h2>フォトギャラリー</h2>
+        <div class="gallery">${p.gallery.map(x=>`<img src="${esc(x.url)}" alt="${esc(p.name)}の追加写真" loading="lazy">`).join('')}</div>
+      </section>
+    `:''}
+  `;
+}).catch(e=>{
+  document.getElementById('profile').innerHTML='<p class="error">プロフィールを取得できませんでした。</p>';
+  console.error(e)
+});
+</script>
+</body>
+</html>
