@@ -99,3 +99,21 @@ h1,h2,h3,.brand,.name,.leader-body h3,.feature b,.button{font-weight:900!importa
 :root{--kingdom-mincho:"Yu Mincho","游明朝","YuMincho","Hiragino Mincho ProN","ヒラギノ明朝 ProN","ＭＳ 明朝","MS Mincho","Noto Serif JP",serif}
 html,body,button,input,textarea,select,header,nav a,.brand,.section-title,h1,h2,h3,.intro strong,.name,.leader-body h3,.loader-caption,.kana,.radar text,.button,dt,dd,.feature b,.recruit-card,.recruit-label,.recruit-note,.recruit-kicker,.leader-role,.leader-link,.eyebrow,.number,.tagline,.foot{font-family:var(--kingdom-mincho)!important}
 h1,h2,h3,.brand,.name,.leader-body h3,.feature b,.button{font-weight:700!important;letter-spacing:.025em}
+
+/* Ver.9: 選手名鑑の背番号横に役職を表示。既存の配色・フォントは変更しない。 */
+.number-line{display:flex;align-items:center;gap:clamp(7px,1.4vw,15px);min-width:0}
+.number-line .number{flex:none}
+.player-role{display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-width:0;font-family:var(--kingdom-mincho)!important;color:#fff;background:var(--navy);border-left:3px solid var(--red);padding:6px 9px;font-size:clamp(10px,1.1vw,13px);font-weight:700;line-height:1.35;letter-spacing:0;white-space:nowrap}
+.player-role span{display:block}
+.ability-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;max-width:640px;margin:4px auto 0}
+.ability-item{background:#f2f5f9;border-top:3px solid var(--navy);text-align:center;padding:9px 3px;display:flex;flex-direction:column;gap:4px;font-size:13px}
+.ability-item strong{font-size:22px;color:var(--red);line-height:1.2}
+.ability-item strong.is-luck{background:var(--navy);color:#fff;display:inline-block;align-self:center;padding:3px 10px;border-radius:20px;font-size:16px}
+.radar .luck-marker{fill:#fff;font-size:14px;font-weight:700}
+.luck-note{max-width:640px;margin:14px auto 0;display:flex;align-items:center;gap:10px;background:#f2f5f9;border-left:4px solid var(--red);padding:12px 14px;color:var(--navy);font-size:13px;line-height:1.65}
+.luck-chip{background:var(--navy);color:#fff;padding:3px 9px;border-radius:20px;font-weight:700;flex:none}
+@media(max-width:550px){.number-line{gap:6px}.player-role{font-size:10px;padding:5px 6px;line-height:1.25}.ability-list{gap:4px}.ability-item{font-size:11px;padding:8px 2px}.ability-item strong{font-size:18px}.luck-note{font-size:12px}}
+
+/* Ver.10: 役職は背番号と同じ赤色の文字のみ。背景・左線なし */
+.player-role{background:transparent!important;border:0!important;color:var(--red)!important;padding:0!important;gap:2px!important;font-weight:700!important;box-shadow:none!important}
+.player-role span{color:inherit!important}
